@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>BloodLink - Blood Requests</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #333;
+        }
+
+        .header {
+            background: #c62828;
+            color: white;
+            padding: 20px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .header span {
+            font-size: 15px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title-section h2 {
+            color: #c62828;
+            margin-bottom: 8px;
+        }
+
+        .title-section p {
+            color: #777;
+            margin: 0;
+        }
+
+        .requests {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        .request-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.08);
+
+            border-left: 5px solid #c62828;
+        }
+
+        .request-card h3 {
+            margin-top: 0;
+            color: #c62828;
+        }
+
+        .request-info {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .request-info strong {
+            color: #333;
+        }
+
+        .urgency {
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-top: 10px;
+        }
+
+        .normal {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .urgent {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .emergency {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .match-button {
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #c62828;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .match-button:hover {
+            background: #a91f1f;
+        }
+
+        .match-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .matching-section {
+            margin-top: 20px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid #eee;
+        }
+
+        .matching-section h4 {
+            color: #c62828;
+            margin-top: 0;
+        }
+
+        .donor {
+            background: #f8f9fa;
+
+            padding: 15px;
+
+            margin-top: 10px;
+
+            border-radius: 10px;
+
+            border-left: 4px solid #2e7d32;
+        }
+
+        .donor h5 {
+            margin: 0 0 8px 0;
+
+            color: #333;
+
+            font-size: 16px;
+        }
+
+        .donor p {
+            margin: 5px 0;
+
+            color: #555;
+
+            font-size: 14px;
+        }
+
+        .no-match {
+            background: #fff3e0;
+
+            color: #ef6c00;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            margin-top: 10px;
+
+            text-align: center;
+        }
+
+        .loading {
+            text-align: center;
+
+            color: #777;
+
+            padding: 10px;
+        }
+
+        .empty {
+            background: white;
+
+            padding: 40px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            color: #777;
+
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .back {
+            display: block;
+
+            width: 200px;
+
+            margin: 30px auto 0;
+
+            padding: 12px;
+
+            background: #c62828;
+
+            color: white;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+        .back:hover {
+            background: #a91f1f;
+        }
+
+        @media (max-width: 700px) {
+
+            .header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .requests {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>BloodLink 🩸</h1>
+
+    <span>Blood Requests</span>
+
+</div>
+
+
+<div class="container">
+
+
+    <div class="title-section">
+
+        <h2>Current Blood Requests</h2>
+
+        <p>
+            View blood requirements and find compatible donors.
+        </p>
+
+    </div>
+
+
+    <div
+            id="requests"
+            class="requests">
+
+    </div>
+
+
+    <a
+            href="/dashboard"
+            class="back">
+
+        ← Back to Dashboard
+
+    </a>
+
+
+</div>
+
+
+<script>
+
+
+    async function loadRequests() {
+
+        const container =
+            document.getElementById("requests");
+
+        try {
+
+            const response =
+                await fetch("/api/blood-requests");
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to load blood requests"
+                );
+
+            }
+
+
+            const requests =
+                await response.json();
+
+
+            container.innerHTML = "";
+
+
+            if (requests.length === 0) {
+
+                container.innerHTML = `
+
+                    <div class="empty">
+
+                        <h3>No Blood Requests</h3>
+
+                        <p>
+                            There are currently no blood
+                            requests registered.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            requests.forEach(function(request) {
+
+                let urgencyClass = "normal";
+
+
+                if (request.urgency === "URGENT") {
+
+                    urgencyClass = "urgent";
+
+                }
+
+
+                if (request.urgency === "EMERGENCY") {
+
+                    urgencyClass = "emergency";
+
+                }
+
+
+                const card =
+                    document.createElement("div");
+
+                card.className = "request-card";
+
+
+                card.innerHTML = `
+
+                    <h3>
+                        🩸 ${request.bloodType}
+                    </h3>
+
+                    <div class="request-info">
+                        <strong>Requester:</strong>
+                        ${request.requesterName}
+                    </div>
+
+                    <div class="request-info">
+                        <strong>City:</strong>
+                        ${request.city}
+                    </div>
+
+                    <div class="request-info">
+                        <strong>Units Required:</strong>
+                        ${request.unitsRequired}
+                    </div>
+
+                    <div class="request-info">
+                        <strong>Phone:</strong>
+                        ${request.phone}
+                    </div>
+
+                    <span class="urgency ${urgencyClass}">
+                        ${request.urgency}
+                    </span>
+
+                    <button
+                            class="match-button"
+                            onclick="findMatchingDonors(
+                                ${request.id},
+                                this
+                            )">
+
+                        Find Matching Donors
+
+                    </button>
+
+                    <div
+                            id="matches-${request.id}"
+                            class="matching-section">
+
+                    </div>
+
+                `;
+
+
+                container.appendChild(card);
+
+            });
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            container.innerHTML = `
+
+                <div class="empty">
+
+                    <h3>
+                        Unable to Load Requests
+                    </h3>
+
+                    <p>
+                        Please make sure the BloodLink
+                        server is running.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+
+    async function findMatchingDonors(
+            requestId,
+            button) {
+
+        const matchingSection =
+            document.getElementById(
+                "matches-" + requestId
+            );
+
+
+        matchingSection.innerHTML = `
+            <div class="loading">
+                Finding compatible donors...
+            </div>
+        `;
+
+
+        button.disabled = true;
+
+        button.textContent =
+            "Searching...";
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/api/blood-requests/"
+                    + requestId
+                    + "/matching-donors"
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Unable to find matching donors"
+                );
+
+            }
+
+
+            const donors =
+                await response.json();
+
+
+            if (donors.length === 0) {
+
+                matchingSection.innerHTML = `
+
+                    <div class="no-match">
+
+                        No eligible matching donors
+                        found for this request.
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            let html = `
+
+                <h4>
+                    Compatible Donors
+                </h4>
+
+            `;
+
+
+            donors.forEach(function(donor) {
+
+                let donationText =
+                    "No previous donation recorded";
+
+
+                if (donor.lastDonationDate) {
+
+                    donationText =
+                        donor.lastDonationDate;
+
+                }
+
+
+                html += `
+
+                    <div class="donor">
+
+                        <h5>
+                            👤 ${donor.fullName}
+                        </h5>
+
+                        <p>
+                            <strong>Blood Group:</strong>
+                            ${donor.bloodType}
+                        </p>
+
+                        <p>
+                            <strong>City:</strong>
+                            ${donor.city}
+                        </p>
+
+                        <p>
+                            <strong>Phone:</strong>
+                            ${donor.phone}
+                        </p>
+
+                        <p>
+                            <strong>Last Donation:</strong>
+                            ${donationText}
+                        </p>
+
+                        <p style="color: #2e7d32; font-weight: bold;">
+                            ✓ Eligible to Donate
+                        </p>
+
+                    </div>
+
+                `;
+
+            });
+
+
+            matchingSection.innerHTML = html;
+
+
+        } catch (error) {
+
+            console.error(error);
+
+
+            matchingSection.innerHTML = `
+
+                <div class="no-match">
+
+                    Unable to find matching donors.
+                    Please try again.
+
+                </div>
+
+            `;
+
+        } finally {
+
+            button.disabled = false;
+
+            button.textContent =
+                "Find Matching Donors";
+
+        }
+
+    }
+
+
+    loadRequests();
+
+</script>
+
+
+</body>
+
+</html>

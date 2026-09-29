@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>BloodLink - Blood Request</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+        }
+
+        .header {
+            background: #c62828;
+            color: white;
+            padding: 20px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.10);
+        }
+
+        h2 {
+            text-align: center;
+            color: #c62828;
+            margin-top: 0;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+
+            border: 1px solid #ddd;
+            border-radius: 8px;
+
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #c62828;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 13px;
+            margin-top: 8px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #c62828;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #a91f1f;
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .success {
+            display: block;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .error {
+            display: block;
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+
+            color: #c62828;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        @media (max-width: 650px) {
+
+            .header {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>BloodLink</h1>
+
+    <span>Blood Request</span>
+
+</div>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Request Blood</h2>
+
+        <div class="subtitle">
+            Submit your blood requirement to the BloodLink system.
+        </div>
+
+
+        <form id="bloodRequestForm">
+
+
+            <div class="row">
+
+                <div class="group">
+
+                    <label>Requester Name</label>
+
+                    <input
+                            type="text"
+                            id="requesterName"
+                            placeholder="Enter your name"
+                            required>
+
+                </div>
+
+
+                <div class="group">
+
+                    <label>Blood Group</label>
+
+                    <select id="bloodType" required>
+
+                        <option value="">
+                            Select Blood Group
+                        </option>
+
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="group">
+
+                    <label>City</label>
+
+                    <input
+                            type="text"
+                            id="city"
+                            placeholder="Enter city"
+                            required>
+
+                </div>
+
+
+                <div class="group">
+
+                    <label>Units Required</label>
+
+                    <input
+                            type="number"
+                            id="unitsRequired"
+                            min="1"
+                            max="20"
+                            placeholder="Number of units"
+                            required>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+
+                <div class="group">
+
+                    <label>Urgency</label>
+
+                    <select id="urgency" required>
+
+                        <option value="">
+                            Select Urgency
+                        </option>
+
+                        <option value="NORMAL">
+                            Normal
+                        </option>
+
+                        <option value="URGENT">
+                            Urgent
+                        </option>
+
+                        <option value="EMERGENCY">
+                            Emergency
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="group">
+
+                    <label>Phone Number</label>
+
+                    <input
+                            type="tel"
+                            id="phone"
+                            maxlength="10"
+                            pattern="[0-9]{10}"
+                            placeholder="10-digit phone number"
+                            required>
+
+                </div>
+
+            </div>
+
+
+            <button
+                    type="submit"
+                    id="submitButton">
+
+                Submit Blood Request
+
+            </button>
+
+
+            <div
+                    id="message"
+                    class="message">
+            </div>
+
+        </form>
+
+
+        <a
+                href="/dashboard"
+                class="back">
+
+            ← Back to Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document
+        .getElementById("bloodRequestForm")
+        .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const requesterName =
+                document
+                    .getElementById("requesterName")
+                    .value
+                    .trim();
+
+            const bloodType =
+                document
+                    .getElementById("bloodType")
+                    .value;
+
+            const city =
+                document
+                    .getElementById("city")
+                    .value
+                    .trim();
+
+            const unitsRequired =
+                parseInt(
+                    document
+                        .getElementById("unitsRequired")
+                        .value
+                );
+
+            const urgency =
+                document
+                    .getElementById("urgency")
+                    .value;
+
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
+
+            const message =
+                document.getElementById("message");
+
+            const submitButton =
+                document.getElementById("submitButton");
+
+
+            /*
+             * Phone validation
+             */
+
+            if (!/^[0-9]{10}$/.test(phone)) {
+
+                message.textContent =
+                    "Please enter a valid 10-digit phone number.";
+
+                message.className =
+                    "message error";
+
+                return;
+            }
+
+
+            /*
+             * Units validation
+             */
+
+            if (unitsRequired < 1 || unitsRequired > 20) {
+
+                message.textContent =
+                    "Units required must be between 1 and 20.";
+
+                message.className =
+                    "message error";
+
+                return;
+            }
+
+
+            const request = {
+
+                requesterName: requesterName,
+
+                bloodType: bloodType,
+
+                city: city,
+
+                unitsRequired: unitsRequired,
+
+                urgency: urgency,
+
+                phone: phone
+            };
+
+
+            try {
+
+                submitButton.disabled = true;
+
+                submitButton.textContent =
+                    "Submitting...";
+
+
+                const response =
+                    await fetch("/api/blood-requests", {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify(request)
+
+                    });
+
+
+                if (response.ok) {
+
+                    message.textContent =
+                        "Blood request submitted successfully!";
+
+                    message.className =
+                        "message success";
+
+                    document
+                        .getElementById("bloodRequestForm")
+                        .reset();
+
+                } else {
+
+                    message.textContent =
+                        "Unable to submit blood request.";
+
+                    message.className =
+                        "message error";
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    "Server connection failed.";
+
+                message.className =
+                    "message error";
+
+            } finally {
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    "Submit Blood Request";
+            }
+
+        });
+
+</script>
+
+
+</body>
+
+</html>

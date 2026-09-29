@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BloodLink - Register</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .register-box {
+            width: 430px;
+            max-width: 100%;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #c62828;
+
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 18px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #c62828;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #c62828;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #a91f1f;
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .login-link {
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #666;
+        }
+
+        .login-link a {
+            color: #c62828;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="register-box">
+
+    <h1>BloodLink</h1>
+
+    <div class="subtitle">
+        Create Your Account
+    </div>
+
+
+    <form id="registerForm">
+
+        <label>Full Name</label>
+
+        <input
+                type="text"
+                name="fullName"
+                placeholder="Enter your full name"
+                required
+        >
+
+
+        <label>Email</label>
+
+        <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+        >
+
+
+        <label>Password</label>
+
+        <input
+                type="password"
+                name="password"
+                placeholder="Create a password"
+                required
+        >
+
+
+        <label>Phone Number</label>
+
+        <input
+                type="tel"
+                name="phone"
+                placeholder="Enter your phone number"
+                required
+        >
+
+
+        <label>Role</label>
+
+        <select name="role" required>
+
+            <option value="">
+                Select Role
+            </option>
+
+            <option value="MEMBER">
+                Member
+            </option>
+
+            <option value="DONOR">
+                Donor
+            </option>
+
+            <option value="RECEIVER">
+                Receiver
+            </option>
+
+        </select>
+
+
+        <button type="submit" id="registerButton">
+            Register
+        </button>
+
+    </form>
+
+
+    <div class="login-link">
+
+        Already have an account?
+
+        <a href="/login">
+            Login
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.getElementById("registerForm")
+        .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+
+            const member = {
+
+                fullName: document.querySelector("[name='fullName']").value,
+
+                email: document.querySelector("[name='email']").value,
+
+                password: document.querySelector("[name='password']").value,
+
+                phone: document.querySelector("[name='phone']").value,
+
+                role: document.querySelector("[name='role']").value
+
+            };
+
+
+            const registerButton =
+                document.getElementById("registerButton");
+
+
+            registerButton.disabled = true;
+
+            registerButton.textContent = "Registering...";
+
+
+            try {
+
+                const response = await fetch(
+                    "/api/members/register",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify(member)
+                    }
+                );
+
+
+                if (response.ok) {
+
+                    alert("Registration successful!");
+
+                    window.location.href = "/login";
+
+                }
+
+                else if (response.status === 409) {
+
+                    alert(
+                        "Email already registered. Please use another email."
+                    );
+
+                }
+
+                else {
+
+                    alert(
+                        "Registration failed. Please check your details."
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                alert(
+                    "Unable to connect to the server."
+                );
+
+            }
+
+            finally {
+
+                registerButton.disabled = false;
+
+                registerButton.textContent = "Register";
+
+            }
+
+        });
+
+</script>
+
+</body>
+</html>

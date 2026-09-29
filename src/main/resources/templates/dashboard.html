@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>BloodLink - Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            color: #333;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #c62828;
+            color: white;
+            padding: 22px 30px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .brand p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 14px;
+        }
+
+
+        /* CONTAINER */
+
+        .container {
+            max-width: 1150px;
+            margin: 35px auto;
+            padding: 20px;
+        }
+
+
+        /* WELCOME */
+
+        .welcome {
+            background: white;
+            padding: 28px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.08);
+
+            margin-bottom: 30px;
+
+            border-left: 5px solid #c62828;
+        }
+
+        .welcome h2 {
+            color: #c62828;
+            margin: 0 0 10px;
+            font-size: 25px;
+        }
+
+        .welcome p {
+            color: #666;
+            line-height: 1.6;
+            margin: 7px 0;
+        }
+
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+
+            padding: 26px 22px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.08);
+
+            text-align: center;
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+
+        /* ICON */
+
+        .icon {
+            width: 70px;
+            height: 70px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #ffebee;
+
+            font-size: 35px;
+
+            margin-bottom: 14px;
+        }
+
+
+        /* TITLE */
+
+        .card h3 {
+            color: #c62828;
+
+            margin: 5px 0 10px;
+
+            font-size: 18px;
+        }
+
+
+        /* DESCRIPTION */
+
+        .card p {
+            color: #666;
+
+            line-height: 1.5;
+
+            min-height: 85px;
+
+            margin: 0;
+        }
+
+
+        /* BUTTON */
+
+        .button {
+            display: inline-block;
+
+            margin-top: 18px;
+
+            padding: 11px 18px;
+
+            background: #c62828;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            width: 100%;
+        }
+
+        .button:hover {
+            background: #a91f1f;
+        }
+
+
+        /* LOGOUT */
+
+        .logout {
+            display: block;
+
+            width: 130px;
+
+            margin: 35px auto 0;
+
+            padding: 12px;
+
+            background: #333;
+
+            color: white;
+
+            text-decoration: none;
+
+            text-align: center;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            background: #222;
+        }
+
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+
+            margin-top: 30px;
+
+            color: #888;
+
+            font-size: 13px;
+        }
+
+
+        /* TABLET */
+
+        @media (max-width: 1050px) {
+
+            .cards {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .header-right {
+                text-align: center;
+            }
+
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .welcome {
+                padding: 23px 20px;
+            }
+
+            .welcome h2 {
+                font-size: 22px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <div class="brand">
+
+        <h1>BloodLink 🩸</h1>
+
+        <p>
+            Blood Donor Registry & Search System
+        </p>
+
+    </div>
+
+
+    <div class="header-right">
+
+        🔐 Secure Member Dashboard
+
+    </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="container">
+
+
+    <!-- WELCOME -->
+
+    <div class="welcome">
+
+        <h2>
+            Welcome to BloodLink 🎉
+        </h2>
+
+        <p>
+            You have successfully logged in.
+        </p>
+
+        <p>
+            Manage donors, search for compatible blood,
+            submit blood requests and view current
+            requirements from one place.
+        </p>
+
+    </div>
+
+
+    <!-- DASHBOARD CARDS -->
+
+    <div class="cards">
+
+
+        <!-- DONOR -->
+
+        <div class="card">
+
+            <div class="icon">
+                🩸
+            </div>
+
+            <h3>
+                Register as Donor
+            </h3>
+
+            <p>
+                Register donor details including blood
+                group, city, phone number and availability.
+            </p>
+
+            <a
+                    href="/donor"
+                    class="button">
+
+                Register Donor
+
+            </a>
+
+        </div>
+
+
+        <!-- SEARCH -->
+
+        <div class="card">
+
+            <div class="icon">
+                🔍
+            </div>
+
+            <h3>
+                Search Donors
+            </h3>
+
+            <p>
+                Search donors by blood group and city
+                and check their current donation eligibility.
+            </p>
+
+            <a
+                    href="/search-donor"
+                    class="button">
+
+                Search Donors
+
+            </a>
+
+        </div>
+
+
+        <!-- REQUEST -->
+
+        <div class="card">
+
+            <div class="icon">
+                🆘
+            </div>
+
+            <h3>
+                Request Blood
+            </h3>
+
+            <p>
+                Create a blood request with required
+                blood group, units, city and urgency.
+            </p>
+
+            <a
+                    href="/blood-request"
+                    class="button">
+
+                Request Blood
+
+            </a>
+
+        </div>
+
+
+        <!-- VIEW REQUESTS -->
+
+        <div class="card">
+
+            <div class="icon">
+                📋
+            </div>
+
+            <h3>
+                Blood Requests
+            </h3>
+
+            <p>
+                View active blood requests and find
+                compatible eligible donors for each request.
+            </p>
+
+            <a
+                    href="/blood-requests"
+                    class="button">
+
+                View Requests
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- LOGOUT -->
+
+    <a
+            href="/logout"
+            class="logout">
+
+        Logout
+
+    </a>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+
+        BloodLink © 2026 |
+        Blood Donor Registry & Search System
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

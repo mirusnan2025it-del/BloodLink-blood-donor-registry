@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BloodLink - Add Donor</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #c62828;
+            color: white;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #c62828;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 15px 0 7px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: #c62828;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #a91f1f;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #c62828;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1>BloodLink</h1>
+
+    <span>Donor Registration</span>
+
+</div>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Register as a Donor</h2>
+
+        <form id="donorForm">
+
+            <label>Full Name</label>
+
+            <input
+                    type="text"
+                    id="fullName"
+                    required
+                    placeholder="Enter donor name"
+            >
+
+
+            <label>Blood Group</label>
+
+            <select id="bloodType" required>
+
+                <option value="">Select Blood Group</option>
+
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+
+            </select>
+
+
+            <label>City</label>
+
+            <input
+                    type="text"
+                    id="city"
+                    required
+                    placeholder="Enter city"
+            >
+
+
+            <label>Phone Number</label>
+
+            <input
+                    type="tel"
+                    id="phone"
+                    required
+                    placeholder="Enter phone number"
+            >
+
+
+            <label>Availability</label>
+
+            <select id="available" required>
+
+                <option value="true">Available</option>
+
+                <option value="false">Not Available</option>
+
+            </select>
+
+
+            <button type="submit">
+                Register Donor
+            </button>
+
+        </form>
+
+        <a href="/dashboard" class="back">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    document.getElementById("donorForm")
+        .addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            const donor = {
+
+                fullName: document.getElementById("fullName").value,
+
+                bloodType: document.getElementById("bloodType").value,
+
+                city: document.getElementById("city").value,
+
+                phone: document.getElementById("phone").value,
+
+                available:
+                    document.getElementById("available").value === "true"
+
+            };
+
+
+            try {
+
+                const response = await fetch("/api/donors", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(donor)
+
+                });
+
+
+                if (response.ok) {
+
+                    alert("Donor registered successfully!");
+
+                    window.location.href = "/dashboard";
+
+                } else {
+
+                    alert("Unable to register donor.");
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+
+                alert("Server connection failed.");
+
+            }
+
+        });
+
+</script>
+
+</body>
+</html>

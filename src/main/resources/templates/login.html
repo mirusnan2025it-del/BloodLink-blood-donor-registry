@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BloodLink - Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+        }
+
+        .login-box {
+            width: 380px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #c62828;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 18px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: #c62828;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #a91f1f;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>BloodLink</h1>
+
+    <div class="subtitle">
+        Blood Donor Registry & Search System
+    </div>
+
+    <form method="post" action="/login">
+
+        <label>Email</label>
+        <input type="text"
+               name="username"
+               placeholder="Enter your email"
+               required>
+
+        <label>Password</label>
+        <input type="password"
+               name="password"
+               placeholder="Enter your password"
+               required>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
